@@ -1,8 +1,12 @@
 <?php
 
 function add_post($title, $contents, $category ){
-    
-    
+    $title = mysql_real_escape_string($title);
+    $contents = mysql_real_escape_string($contents);
+    $category = (int) $category;
+
+    mysql_query("INSERT INTO `posts` SET `cat_id` = '{$category}',
+        `title` = '{$title}', `contents` = '{$contents}', `date_posted` = NOW()");
 }
 
 function edit_post($id, $title, $contents, $category ){
@@ -48,6 +52,6 @@ function category_exists($field, $value) {
 
     $query = mysql_query("SELECT COUNT(1)FROM `categories` WHERE `{$field}` = '{$value}'");
 
-    return(mysql_result($query, 0)=='0')? false : true;
+    return(mysql_result($query, 0)== '0')? false : true;
 }
 ?>

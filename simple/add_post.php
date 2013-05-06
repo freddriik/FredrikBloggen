@@ -10,6 +10,8 @@ if(isset($_POST['title'], $_POST['contents'], $_POST['category'])){
 
 	if(empty($title)){
 		$errors[] = 'You need to supply a title.';
+	}else if(strlen($title) > 255){
+		 $errors[] = 'The title cannot be longer than 255 characters.';
 	}
 
 	if(empty($contents)){
@@ -20,9 +22,12 @@ if(isset($_POST['title'], $_POST['contents'], $_POST['category'])){
 		$errors[] = 'That category does not exist.';
 	}
 
-	if(strlen($title) > 255){
-		 $errors[] = 'The title cannot be longer than 255 characters.';
+	if(empty($errors)){
+		add_post($title, $contents, $_POST['category']);
+
 	}
+
+	
 }//end if
 ?>
 
@@ -45,15 +50,12 @@ if(isset($_POST['title'], $_POST['contents'], $_POST['category'])){
     	<h1>Add a Post</h1>
 
     	<?php
-    	if(isset($errors) && ! empty($erros)){
+    	if(isset($errors) && ! empty($errors)){
     		echo '<ul><li>',  implode('</li><li>', $errors) , '</li></ul>';
     	}  
     	?>
 
-    	<ul>
-    		<li>$error</li>
-    		<li>$error</li>
-    	</ul>	
+    		
       
         <form action="" method="post">
         	<div>
