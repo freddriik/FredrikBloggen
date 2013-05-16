@@ -15,6 +15,9 @@ if ( isset($_POST['name']) ){
     
     if(! isset($error)){
         add_category($name);
+
+        header("Location: add_post.php");
+        die();
         
     }
 }
